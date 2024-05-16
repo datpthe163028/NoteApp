@@ -18,6 +18,7 @@ namespace NoteApp.App.Database.Data
         public string? Email { get; set; }
         public string? Pass { get; set; }
         public int? CurrentStudyInfoId { get; set; }
+        public bool? Active { get; set; }
 
         public virtual UniversityMajorSemester? CurrentStudyInfo { get; set; }
         public virtual Role? Role { get; set; }
