@@ -32,8 +32,8 @@ namespace NoteApp.Module.Account.Controllers
             return ResponseOk(account.FirstName);
         }
 
-        [HttpGet]
-        public IActionResult Index(int id)
+        [HttpPost("Auth")]
+        public IActionResult Login([FromBody] AccountLoginRequest account)
         {
             return Ok( _unitOfWork.Universities);
         }
