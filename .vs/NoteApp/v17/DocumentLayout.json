@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\NoteApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\module\\majors\\controllers\\majorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\module\\majors\\controllers\\majorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\module\\majors\\services\\majorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\module\\majors\\services\\majorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\module\\semesters\\controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\module\\semesters\\controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\module\\semesters\\service\\semesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\module\\semesters\\service\\semesterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\app\\database\\data\\semester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\app\\database\\data\\semester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|c:\\users\\admin\\source\\repos\\noteapp\\noteapp\\app\\designpatterns\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE6C7875-431A-4424-B262-BFE2A3C61127}|NoteApp\\NoteApp.csproj|solutionrelative:noteapp\\app\\designpatterns\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MajorController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Majors\\Controllers\\MajorController.cs",
+              "RelativeDocumentMoniker": "NoteApp\\Module\\Majors\\Controllers\\MajorController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Majors\\Controllers\\MajorController.cs",
+              "RelativeToolTip": "NoteApp\\Module\\Majors\\Controllers\\MajorController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAABeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:56:14.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Semester.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\App\\Database\\Data\\Semester.cs",
+              "RelativeDocumentMoniker": "NoteApp\\App\\Database\\Data\\Semester.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\App\\Database\\Data\\Semester.cs",
+              "RelativeToolTip": "NoteApp\\App\\Database\\Data\\Semester.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:52:17.778Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\App\\DesignPatterns\\Repository\\Repository.cs",
+              "RelativeDocumentMoniker": "NoteApp\\App\\DesignPatterns\\Repository\\Repository.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\App\\DesignPatterns\\Repository\\Repository.cs",
+              "RelativeToolTip": "NoteApp\\App\\DesignPatterns\\Repository\\Repository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:39:23.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MajorService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Majors\\Services\\MajorService.cs",
+              "RelativeDocumentMoniker": "NoteApp\\Module\\Majors\\Services\\MajorService.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Majors\\Services\\MajorService.cs",
+              "RelativeToolTip": "NoteApp\\Module\\Majors\\Services\\MajorService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:34:32.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Program.cs",
+              "RelativeDocumentMoniker": "NoteApp\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Program.cs",
+              "RelativeToolTip": "NoteApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:07:01.489Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SemesterService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Semesters\\Service\\SemesterService.cs",
+              "RelativeDocumentMoniker": "NoteApp\\Module\\Semesters\\Service\\SemesterService.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Semesters\\Service\\SemesterService.cs",
+              "RelativeToolTip": "NoteApp\\Module\\Semesters\\Service\\SemesterService.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAQwBgAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:06:18.04Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SemesterController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Semesters\\Controllers\\SemesterController.cs",
+              "RelativeDocumentMoniker": "NoteApp\\Module\\Semesters\\Controllers\\SemesterController.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\NoteApp\\NoteApp\\Module\\Semesters\\Controllers\\SemesterController.cs",
+              "RelativeToolTip": "NoteApp\\Module\\Semesters\\Controllers\\SemesterController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T11:06:07.795Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
