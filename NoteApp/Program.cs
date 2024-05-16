@@ -1,10 +1,15 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.DesignPatterns.UnitOfWork;
+using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
+using NoteApp.Module.Account.Validations;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Semesters.Service;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +26,6 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
-
 
 var connect = builder.Configuration.GetConnectionString("ShopConnect");
 
@@ -58,6 +62,9 @@ builder.Services.AddScoped<IRepository<UniversityMajorSemester>, Repository<Univ
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 #endregion
 
+builder.Services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AccountRequestValidate>());
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
@@ -68,7 +75,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
 app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
