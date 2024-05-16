@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NoteApp.App.Database.Data
 {
@@ -13,6 +14,7 @@ namespace NoteApp.App.Database.Data
         public int UniversityId { get; set; }
         public string? UniversityName { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<UniversityMajor> UniversityMajors { get; set; }
     }
 }
