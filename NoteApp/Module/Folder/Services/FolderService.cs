@@ -6,6 +6,7 @@ namespace NoteApp.Module.Folder.Services
 {
     public interface IFolderService
     {
+        (Foldernote data, string message) CreateFolder(string folderName, string token);
         (List<Foldernote> data, string erroeMessage) GetList(string token);
     }
     public class FolderService : IFolderService
@@ -19,10 +20,21 @@ namespace NoteApp.Module.Folder.Services
             _jwtService = jwt;
         }
 
+        public (Foldernote data, string message) CreateFolder(string folderName, string token)
+        {
+            var x = _jwtService.VerifyToken(token);
+            if (x == null)
+                return (null, "Not Found");
+            var folder = new Foldernote() { FolderName = folderName, UserId = x.UserId };
+            _unitOfWork.FolderNotes.Add(folder);
+            _unitOfWork.SaveChanges();
+            return (folder, "");
+        }
+
         public (List<Foldernote> data, string erroeMessage) GetList(string token)
         {
             List<Foldernote> dataList = new List<Foldernote>();
-           var x =  _jwtService.VerifyToken(token);
+            var x =  _jwtService.VerifyToken(token);
             
             if (x == null)
             {

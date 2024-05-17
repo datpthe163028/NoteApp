@@ -10,6 +10,7 @@ using NoteApp.App.JwtToken.Services;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
 using NoteApp.Module.Account.Validations;
+using NoteApp.Module.File.Services;
 using NoteApp.Module.Folder.Services;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Semesters.Service;
@@ -45,6 +46,7 @@ builder.Services.AddTransient<IFolderService, FolderService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IMajorService, MajorService>();
 builder.Services.AddTransient<ISemesterService, SemesterService>();
+builder.Services.AddTransient<IFileService, FileService>();
 #endregion
 
 #region registerServiceForRepo

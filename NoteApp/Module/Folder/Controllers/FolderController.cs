@@ -32,5 +32,16 @@ namespace NoteApp.Module.Folder.Controller
              return ResponseOk(dataResponse: data, "");
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateFolder([FromBody] string folderName)
+        {
+            var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            (Foldernote data, string message) = _folderService.CreateFolder(folderName, token);
+            if (!string.IsNullOrEmpty(message))
+                return ResponseBadRequest(messageResponse: message);
+            return ResponseOk(dataResponse: data);
+        }
+
     }
 }
