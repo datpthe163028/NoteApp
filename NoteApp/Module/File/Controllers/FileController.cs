@@ -19,6 +19,7 @@ namespace NoteApp.Module.File.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetListFile(int folderId)
         {
             (List<Filenote> data, string message) = _fileService.GetList(folderId);
