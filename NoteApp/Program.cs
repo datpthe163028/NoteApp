@@ -6,9 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.DesignPatterns.UnitOfWork;
+using NoteApp.App.JwtToken.Services;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
 using NoteApp.Module.Account.Validations;
+using NoteApp.Module.Folder.Services;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Semesters.Service;
 using System;
@@ -39,7 +41,7 @@ builder.Services.AddDbContext<noteappContext>(options =>
 builder.Services.AddTransient<noteappContext, noteappContext>();
 
 #region registerServiceForController
-
+builder.Services.AddTransient<IFolderService, FolderService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IMajorService, MajorService>();
 builder.Services.AddTransient<ISemesterService, SemesterService>();
@@ -88,6 +90,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
     };
 });
+builder.Services.AddTransient<IJwtService, JwtService>();
 #endregion
 builder.Services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AccountRequestValidate>());
 
