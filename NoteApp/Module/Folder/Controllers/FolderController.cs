@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NoteApp.App.Controllers;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.UnitOfWork;
+using NoteApp.Module.Folder.Request;
 using NoteApp.Module.Folder.Services;
 
 namespace NoteApp.Module.Folder.Controller
@@ -34,10 +35,10 @@ namespace NoteApp.Module.Folder.Controller
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateFolder([FromBody] string folderName)
+        public IActionResult CreateFolder([FromBody] RequestAddFolder folder)
         {
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            (Foldernote data, string message) = _folderService.CreateFolder(folderName, token);
+            (Foldernote data, string message) = _folderService.CreateFolder(folder.Foldername, token);
             if (!string.IsNullOrEmpty(message))
                 return ResponseBadRequest(messageResponse: message);
             return ResponseOk(dataResponse: data);
