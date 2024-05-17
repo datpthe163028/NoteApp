@@ -33,9 +33,22 @@ namespace NoteApp.Module.Account.Controllers
         }
 
         [HttpPost("Auth")]
-        public IActionResult Login([FromBody] AccountLoginRequest account)
+        public async Task<IActionResult> Login([FromBody] AccountLoginRequest account)
         {
-            return Ok( _unitOfWork.Universities);
+            (string accessToken, string errorMessage) = await AccountService.AuthAsync(account);
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                return ResponseBadRequest( messageResponse: errorMessage);
+            }
+            return ResponseOk(dataResponse: accessToken);
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAccount()
+        {
+            return Ok();
         }
 
     }
