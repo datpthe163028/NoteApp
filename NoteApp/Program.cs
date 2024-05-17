@@ -1,6 +1,8 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.DesignPatterns.UnitOfWork;
@@ -10,6 +12,7 @@ using NoteApp.Module.Account.Validations;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Semesters.Service;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +65,30 @@ builder.Services.AddScoped<IRepository<UniversityMajorSemester>, Repository<Univ
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
 #endregion
 
+#region AddAuthentication, AddJwtBearer
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+string secretKey = jwtSettings["SecretKey"];
+string issuer = jwtSettings["Issuer"];
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = issuer,
+        ValidAudience = issuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+    };
+});
+#endregion
 builder.Services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AccountRequestValidate>());
 
 
@@ -77,6 +104,7 @@ app.UseSwaggerUI();
 }
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
