@@ -38,7 +38,7 @@ namespace NoteApp.Module.Account.Controllers
             (string accessToken, string errorMessage) = await AccountService.AuthAsync(account);
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                return ResponseBadRequest( messageResponse: errorMessage);
+                ResponseOk(messageResponse: errorMessage );
             }
             return ResponseOk(dataResponse: accessToken);
         }
