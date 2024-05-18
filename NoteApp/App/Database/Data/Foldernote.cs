@@ -16,7 +16,7 @@ namespace NoteApp.App.Database.Data
         public int? UserId { get; set; }
         [JsonIgnore]
         public virtual User? User { get; set; }
-        [JsonIgnore]
+     
         public virtual ICollection<Filenote> Filenotes { get; set; }
     }
 }

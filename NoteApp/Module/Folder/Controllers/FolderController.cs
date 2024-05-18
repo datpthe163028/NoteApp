@@ -30,7 +30,7 @@ namespace NoteApp.Module.Folder.Controller
                 return ResponseOk(messageResponse: "Folder cannot found");
             }
             (List<Foldernote> data, string erroeMessage) = _folderService.GetList(token);
-             return ResponseOk(dataResponse: data, "");
+             return ResponseOk(dataResponse: data.Select(s => new { FolderId = s.FolderId, FolderName = s.FolderName, Filenotes = s.Filenotes }  ));
         }
 
         [HttpPost]
