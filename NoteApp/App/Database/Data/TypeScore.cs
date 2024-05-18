@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NoteApp.App.Database.Data
 {
@@ -12,6 +13,7 @@ namespace NoteApp.App.Database.Data
 
         public int TypeScoreId { get; set; }
         public string? Name { get; set; }
+        [JsonIgnore]
 
         public virtual ICollection<SubjectTypeScore> SubjectTypeScores { get; set; }
     }

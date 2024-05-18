@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NoteApp.App.Database.Data
 {
@@ -13,8 +14,10 @@ namespace NoteApp.App.Database.Data
         public int SubjectId { get; set; }
         public string? SubjectName { get; set; }
         public int? Belong { get; set; }
+        [JsonIgnore]
 
         public virtual UniversityMajorSemester? BelongNavigation { get; set; }
+        [JsonIgnore]
         public virtual ICollection<SubjectTypeScore> SubjectTypeScores { get; set; }
     }
 }

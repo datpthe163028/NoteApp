@@ -5,13 +5,13 @@ using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using System.Security.Principal;
 
-namespace NoteApp.App.DesignPatterns.UnitOfWork
+namespace NoteApp.App.DesignPatterns.Strategy
 {
 
-    public class UnitOfWork 
+    public class UnitOfWork
     {
         private readonly noteappContext DbContext;
-        public IRepository<Filenote> FileNotes {  get;}
+        public IRepository<Filenote> FileNotes { get; }
         public IRepository<Foldernote> FolderNotes { get; }
         public IRepository<Grade> Grades { get; }
         public IRepository<Major> Majors { get; }
@@ -63,7 +63,7 @@ namespace NoteApp.App.DesignPatterns.UnitOfWork
                     DbContext.SaveChanges();
                     transactionResult.Commit();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("SaveChanges: " + ex.GetBaseException());
                     transactionResult.Rollback();
@@ -82,7 +82,7 @@ namespace NoteApp.App.DesignPatterns.UnitOfWork
                     await DbContext.SaveChangesAsync();
                     await transactionResult.CommitAsync();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("SaveChangesAsync: " + ex.GetBaseException());
                     await transactionResult.RollbackAsync();

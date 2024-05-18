@@ -15,7 +15,7 @@ namespace NoteApp.App.Database.Data
             : base(options)
         {
         }
-
+        public virtual DbSet<DetailToDoList> DetailToDoLists { get; set; } = null!;
         public virtual DbSet<Filenote> Filenotes { get; set; } = null!;
         public virtual DbSet<Foldernote> Foldernotes { get; set; } = null!;
         public virtual DbSet<Grade> Grades { get; set; } = null!;
@@ -46,6 +46,35 @@ namespace NoteApp.App.Database.Data
         {
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
+
+            modelBuilder.Entity<DetailToDoList>(entity =>
+            {
+                entity.ToTable("detail_to_do_list");
+
+                entity.HasIndex(e => e.ToDoListNoteId, "to_do_list_note_id");
+
+                entity.Property(e => e.DetailToDoListId).HasColumnName("detail_to_do_list_id");
+
+                entity.Property(e => e.Due)
+                    .HasColumnType("datetime")
+                    .HasColumnName("due");
+
+                entity.Property(e => e.Status)
+                    .HasColumnType("bit(1)")
+                    .HasColumnName("status");
+
+                entity.Property(e => e.TaskName)
+                    .HasMaxLength(255)
+                    .HasColumnName("task_name")
+                    .IsFixedLength();
+
+                entity.Property(e => e.ToDoListNoteId).HasColumnName("to_do_list_note_id");
+
+                entity.HasOne(d => d.ToDoListNote)
+                    .WithMany(p => p.DetailToDoLists)
+                    .HasForeignKey(d => d.ToDoListNoteId)
+                    .HasConstraintName("detail_to_do_list_ibfk_1");
+            });
 
             modelBuilder.Entity<Filenote>(entity =>
             {
@@ -262,14 +291,6 @@ namespace NoteApp.App.Database.Data
                     .ValueGeneratedNever()
                     .HasColumnName("to_do_list_note_id");
 
-                entity.Property(e => e.Due).HasColumnType("datetime");
-
-                entity.Property(e => e.Status).HasColumnName("status");
-
-                entity.Property(e => e.Task)
-                    .HasMaxLength(255)
-                    .HasColumnName("task")
-                    .IsFixedLength();
 
                 entity.HasOne(d => d.ToDoListNoteNavigation)
                     .WithOne(p => p.ToDoListNote)

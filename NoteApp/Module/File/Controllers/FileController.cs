@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.App.Controllers;
 using NoteApp.App.Database.Data;
+using NoteApp.Module.File.Request;
 using NoteApp.Module.File.Services;
 
 namespace NoteApp.Module.File.Controllers
@@ -28,6 +29,17 @@ namespace NoteApp.Module.File.Controllers
             return ResponseOk(dataResponse: data);
         }
 
-        
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateFile(RequestAddFile file)
+        {
+            (Filenote data, string ErrorMessage) = _fileService.CreateFile(file.FolderId, file.FileName, file.typeFile);
+           if(!string.IsNullOrEmpty(ErrorMessage))
+                 return ResponseBadRequest();
+           else 
+                return ResponseOk(dataResponse: data);
+        }
+
+
     }
 }

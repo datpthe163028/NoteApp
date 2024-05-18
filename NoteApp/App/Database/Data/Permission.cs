@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NoteApp.App.Database.Data
 {
@@ -12,6 +13,7 @@ namespace NoteApp.App.Database.Data
 
         public int PermissionId { get; set; }
         public string? PermissionName { get; set; }
+        [JsonIgnore]
 
         public virtual ICollection<Role> Roles { get; set; }
     }

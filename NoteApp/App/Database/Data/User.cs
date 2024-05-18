@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace NoteApp.App.Database.Data
 {
@@ -20,10 +21,14 @@ namespace NoteApp.App.Database.Data
         public string? Pass { get; set; }
         public int? CurrentStudyInfoId { get; set; }
         public bool? Active { get; set; }
+        [JsonIgnore]
 
         public virtual UniversityMajorSemester? CurrentStudyInfo { get; set; }
+        [JsonIgnore]
         public virtual Role? Role { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Foldernote> Foldernotes { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Grade> Grades { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
-using NoteApp.App.DesignPatterns.UnitOfWork;
+using NoteApp.App.DesignPatterns.Strategy;
 using NoteApp.App.JwtToken.Services;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;

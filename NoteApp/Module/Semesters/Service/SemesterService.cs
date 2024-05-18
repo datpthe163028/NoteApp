@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NoteApp.App.Database.Data;
-using NoteApp.App.DesignPatterns.UnitOfWork;
+using NoteApp.App.DesignPatterns.Strategy;
 
 namespace NoteApp.Module.Semesters.Service
 {
