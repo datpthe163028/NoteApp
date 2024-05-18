@@ -7,33 +7,34 @@ namespace NoteApp.App.DesignPatterns.Strategy
 {
     public interface OperateFileStrategy
     {
-        Filenote CreateFile(string fileName, int folderId);
+        Task<Filenote> CreateFile(string fileName, int folderId);
     }
 
     public class OperateSimpleFileNoteStrategy : OperateFileStrategy
     {
 
-        public Filenote CreateFile(string fileName, int folderId)
+        public async Task<Filenote> CreateFile(string fileName, int folderId)
         {
             noteappContext ct = new noteappContext();
             var file = new Filenote() { FileName = fileName, FolderId = folderId };
             ct.Filenotes.Add(file);
-            ct.SaveChanges();
+            await ct.SaveChangesAsync();
             ct.SimpleNotes.Add(new SimpleNote () { SimpleNoteId = file.FileId, Content = ""} );
-            ct.SaveChanges();
+            await ct.SaveChangesAsync();
             return file;
         }
     }
 
     public class OperateToDoListFileNoteStrategy : OperateFileStrategy
     {
-        public Filenote CreateFile(string fileName, int folderId)
+        public async Task<Filenote> CreateFile(string fileName, int folderId)
         {
             noteappContext ct = new noteappContext();
             var file = new Filenote() { FileName = fileName, FolderId = folderId };
             ct.Filenotes.Add(file);
-            ct.SaveChanges();
+            await ct.SaveChangesAsync();
             ct.ToDoListNotes.Add(new ToDoListNote() {  });
+            await ct.SaveChangesAsync();
             return file;
         }
     }
@@ -63,7 +64,7 @@ namespace NoteApp.App.DesignPatterns.Strategy
             this._OperateFileStrategy = OperateFileStrategyFactory.CreateFileStrategy(type);
         }
 
-        public Filenote AddFile(string fileName, int folderId)
+        public Task<Filenote> AddFile(string fileName, int folderId)
         {
             if(_OperateFileStrategy != null) 
                 return _OperateFileStrategy.CreateFile(fileName, folderId);

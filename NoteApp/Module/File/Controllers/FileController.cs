@@ -27,13 +27,14 @@ namespace NoteApp.Module.File.Controllers
             if(!string.IsNullOrEmpty(message))
                 return ResponseBadRequest(messageResponse: message);
             return ResponseOk(dataResponse: data);
+            //ddd
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateFile(RequestAddFile file)
+        public async Task<IActionResult> CreateFile(RequestAddFile file)
         {
-            (Filenote data, string ErrorMessage) = _fileService.CreateFile(file.FolderId, file.FileName, file.typeFile);
+            (Filenote data, string ErrorMessage) = await _fileService.CreateFile(file.FolderId, file.FileName, file.typeFile);
            if(!string.IsNullOrEmpty(ErrorMessage))
                  return ResponseBadRequest();
            else 

@@ -7,7 +7,7 @@ namespace NoteApp.Module.File.Services
 {
     public interface IFileService
     {
-        (Filenote  data, string ErrorMessage) CreateFile(int folderId, string filename, string typeFile);
+        Task<(Filenote? data, string ErrorMessage)> CreateFile(int folderId, string filename, string typeFile);
         (List<Filenote> Filenote, string message) GetList(int folderId);
     }
     public class FileService : IFileService
@@ -26,14 +26,14 @@ namespace NoteApp.Module.File.Services
             return (x.Filenotes.ToList(), "");
         }
 
-        public (Filenote data, string ErrorMessage) CreateFile(int folderId,string fileName, string typeFile)
+        public async Task<(Filenote? data, string ErrorMessage)> CreateFile(int folderId,string fileName, string typeFile)
         {
             if(string.IsNullOrEmpty(fileName))
-                return   (null, "error");
+                return (null, "error");
 
             OperateNote operateNote = new OperateNote();
             operateNote.SetFileStrategy(typeFile);
-            var x = operateNote.AddFile(fileName, folderId);
+            var x = await operateNote.AddFile(fileName, folderId);
             if (x != null)
                 return (x, "");
             return (null, "error");
