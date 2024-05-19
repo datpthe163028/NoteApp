@@ -16,7 +16,7 @@ namespace NoteApp.App.DesignPatterns.Strategy
         public async Task<Filenote> CreateFile(string fileName, int folderId)
         {
             noteappContext ct = new noteappContext();
-            var file = new Filenote() { FileName = fileName, FolderId = folderId };
+            var file = new Filenote() {filetype = "SIMPLE", FileName = fileName, FolderId = folderId };
             ct.Filenotes.Add(file);
             await ct.SaveChangesAsync();
             ct.SimpleNotes.Add(new SimpleNote () { SimpleNoteId = file.FileId, Content = ""} );
@@ -30,7 +30,7 @@ namespace NoteApp.App.DesignPatterns.Strategy
         public async Task<Filenote> CreateFile(string fileName, int folderId)
         {
             noteappContext ct = new noteappContext();
-            var file = new Filenote() { FileName = fileName, FolderId = folderId };
+            var file = new Filenote() { filetype = "TODOLIST", FileName = fileName, FolderId = folderId };
             ct.Filenotes.Add(file);
             await ct.SaveChangesAsync();
             ct.ToDoListNotes.Add(new ToDoListNote() {  });

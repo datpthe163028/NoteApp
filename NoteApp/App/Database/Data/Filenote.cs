@@ -8,6 +8,7 @@ namespace NoteApp.App.Database.Data
     {
         public int FileId { get; set; }
         public string? FileName { get; set; }
+        public string? filetype { get; set; }
         public int? FolderId { get; set; }
         [JsonIgnore]
 
