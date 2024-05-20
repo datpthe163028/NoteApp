@@ -13,11 +13,13 @@ using NoteApp.Module.Account.Validations;
 using NoteApp.Module.File.Services;
 using NoteApp.Module.Folder.Services;
 using NoteApp.Module.Majors.Services;
+using NoteApp.Module.Note.Service;
 using NoteApp.Module.Semesters.Service;
 using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 
@@ -41,12 +43,15 @@ builder.Services.AddDbContext<noteappContext>(options =>
 });
 builder.Services.AddTransient<noteappContext, noteappContext>();
 
+
 #region registerServiceForController
 builder.Services.AddTransient<IFolderService, FolderService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IMajorService, MajorService>();
 builder.Services.AddTransient<ISemesterService, SemesterService>();
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
+
 #endregion
 
 #region registerServiceForRepo
@@ -100,7 +105,7 @@ builder.Services.AddControllersWithViews().AddFluentValidation(fv => fv.Register
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
+app.UseWebSockets();
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
