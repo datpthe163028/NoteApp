@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
-using NoteApp.App.DesignPatterns.Strategy;
+using NoteApp.App.DesignPatterns.Repository;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

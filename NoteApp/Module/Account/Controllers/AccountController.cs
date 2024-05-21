@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.App.Controllers;
 using NoteApp.App.Database.Data;
-using NoteApp.App.DesignPatterns.Strategy;
+using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
 

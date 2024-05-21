@@ -27,8 +27,12 @@ namespace NoteApp.App.Database.Data
         [JsonIgnore]
         public virtual Role? Role { get; set; }
         [JsonIgnore]
+        public virtual ICollection<Club> Clubs { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Foldernote> Foldernotes { get; set; }
         [JsonIgnore]
         public virtual ICollection<Grade> Grades { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

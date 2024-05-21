@@ -1,5 +1,5 @@
 ﻿using NoteApp.App.Database.Data;
-using NoteApp.App.DesignPatterns.Strategy;
+using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.JwtToken.Services;
 
 namespace NoteApp.Module.Folder.Services

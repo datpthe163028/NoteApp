@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NoteApp.App.Database.Data;
+using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.DesignPatterns.Strategy;
 using NoteApp.Module.Folder.Services;
 

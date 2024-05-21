@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
-using NoteApp.App.DesignPatterns.Strategy;
 using NoteApp.App.JwtToken.Services;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
@@ -57,6 +56,9 @@ builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
 #region registerServiceForRepo
 builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepository<Filenote>, Repository<Filenote>>();
+builder.Services.AddScoped<IRepository<Club>, Repository<Club>>();
+builder.Services.AddScoped<IRepository<CandidateRecruit>, Repository<CandidateRecruit>>();
+builder.Services.AddScoped<IRepository<Notification>, Repository<Notification>>();
 builder.Services.AddScoped<IRepository<Foldernote>, Repository<Foldernote>>();
 builder.Services.AddScoped<IRepository<Grade>, Repository<Grade>>();
 builder.Services.AddScoped<IRepository<Major>, Repository<Major>>();

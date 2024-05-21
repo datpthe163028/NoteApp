@@ -15,11 +15,15 @@ namespace NoteApp.App.Database.Data
             : base(options)
         {
         }
+
+        public virtual DbSet<CandidateRecruit> CandidateRecruits { get; set; } = null!;
+        public virtual DbSet<Club> Clubs { get; set; } = null!;
         public virtual DbSet<DetailToDoList> DetailToDoLists { get; set; } = null!;
         public virtual DbSet<Filenote> Filenotes { get; set; } = null!;
         public virtual DbSet<Foldernote> Foldernotes { get; set; } = null!;
         public virtual DbSet<Grade> Grades { get; set; } = null!;
         public virtual DbSet<Major> Majors { get; set; } = null!;
+        public virtual DbSet<Notification> Notifications { get; set; } = null!;
         public virtual DbSet<Permission> Permissions { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Semester> Semesters { get; set; } = null!;
@@ -38,7 +42,7 @@ namespace NoteApp.App.Database.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;initial catalog=noteapp;user=root;password=dat123456", ServerVersion.Parse("8.3.0-mysql"));
+                optionsBuilder.UseMySql("server=localhost;database=noteapp;user=root;password=dat123456", ServerVersion.Parse("8.3.0-mysql"));
             }
         }
 
@@ -46,6 +50,80 @@ namespace NoteApp.App.Database.Data
         {
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
+
+            modelBuilder.Entity<CandidateRecruit>(entity =>
+            {
+                entity.HasKey(e => e.CandidateId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("candidate_recruit");
+
+                entity.HasIndex(e => e.ClubId, "club_id");
+
+                entity.Property(e => e.CandidateId).HasColumnName("candidate_id");
+
+                entity.Property(e => e.ClubId).HasColumnName("club_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name")
+                    .IsFixedLength();
+
+                entity.Property(e => e.StudentCode)
+                    .HasMaxLength(255)
+                    .HasColumnName("student_code")
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.Club)
+                    .WithMany(p => p.CandidateRecruits)
+                    .HasForeignKey(d => d.ClubId)
+                    .HasConstraintName("candidate_recruit_ibfk_1");
+            });
+
+            modelBuilder.Entity<Club>(entity =>
+            {
+                entity.ToTable("club");
+
+                entity.HasIndex(e => e.ClubOwnerId, "club_owner_id");
+
+                entity.Property(e => e.ClubId).HasColumnName("club_id");
+
+                entity.Property(e => e.ClubOwnerId).HasColumnName("club_owner_id");
+
+                entity.Property(e => e.DateInterview)
+                    .HasMaxLength(255)
+                    .HasColumnName("date_interview")
+                    .IsFixedLength();
+
+                entity.Property(e => e.DateProcedure)
+                    .HasMaxLength(255)
+                    .HasColumnName("date_procedure")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Positions)
+                    .HasMaxLength(255)
+                    .HasColumnName("positions")
+                    .IsFixedLength();
+
+                entity.Property(e => e.StatusRecruitment)
+                    .HasColumnType("bit(1)")
+                    .HasColumnName("status_recruitment");
+
+                entity.Property(e => e.UrlImg)
+                    .HasMaxLength(250)
+                    .HasColumnName("url_img")
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.ClubOwner)
+                    .WithMany(p => p.Clubs)
+                    .HasForeignKey(d => d.ClubOwnerId)
+                    .HasConstraintName("club_ibfk_1");
+            });
 
             modelBuilder.Entity<DetailToDoList>(entity =>
             {
@@ -90,6 +168,11 @@ namespace NoteApp.App.Database.Data
                 entity.Property(e => e.FileName)
                     .HasMaxLength(30)
                     .HasColumnName("file_name")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Filetype)
+                    .HasMaxLength(50)
+                    .HasColumnName("filetype")
                     .IsFixedLength();
 
                 entity.Property(e => e.FolderId).HasColumnName("folder_id");
@@ -161,6 +244,31 @@ namespace NoteApp.App.Database.Data
                     .HasMaxLength(100)
                     .HasColumnName("name")
                     .IsFixedLength();
+            });
+
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.ToTable("notification");
+
+                entity.HasIndex(e => e.UserId, "user_id");
+
+                entity.Property(e => e.NotificationId).HasColumnName("Notification_id");
+
+                entity.Property(e => e.Content)
+                    .HasColumnType("text")
+                    .HasColumnName("content");
+
+                entity.Property(e => e.Header)
+                    .HasMaxLength(255)
+                    .HasColumnName("header")
+                    .IsFixedLength();
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Notifications)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("notification_ibfk_1");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -291,6 +399,10 @@ namespace NoteApp.App.Database.Data
                     .ValueGeneratedNever()
                     .HasColumnName("to_do_list_note_id");
 
+                entity.Property(e => e.Header)
+                    .HasMaxLength(255)
+                    .HasColumnName("header")
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.ToDoListNoteNavigation)
                     .WithOne(p => p.ToDoListNote)
@@ -382,6 +494,10 @@ namespace NoteApp.App.Database.Data
                 entity.HasIndex(e => e.RoleId, "role_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.Active)
+                    .HasColumnType("bit(1)")
+                    .HasColumnName("active");
 
                 entity.Property(e => e.CurrentStudyInfoId).HasColumnName("current_study_info_id");
 

@@ -2,16 +2,18 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Hosting;
 using NoteApp.App.Database.Data;
-using NoteApp.App.DesignPatterns.Repository;
 using System.Security.Principal;
 
-namespace NoteApp.App.DesignPatterns.Strategy
+namespace NoteApp.App.DesignPatterns.Repository
 {
 
     public class UnitOfWork
     {
         private readonly noteappContext DbContext;
         public IRepository<Filenote> FileNotes { get; }
+        public IRepository<Club> Clubs { get; }
+        public IRepository<CandidateRecruit> CandidateRecruits { get; }
+        public IRepository<Notification> Notifications { get; }
         public IRepository<Foldernote> FolderNotes { get; }
         public IRepository<Grade> Grades { get; }
         public IRepository<Major> Majors { get; }
@@ -30,9 +32,14 @@ namespace NoteApp.App.DesignPatterns.Strategy
 
         public UnitOfWork(noteappContext ct, IRepository<Filenote> FileNotes_, IRepository<Foldernote> FolderNotes_, IRepository<Grade> Grades_, IRepository<Major> Majors_, IRepository<Permission> Permissions_,
                           IRepository<Role> Roles_, IRepository<Semester> Semesters_, IRepository<SimpleNote> SimpleNotes_, IRepository<Subject> Subjects_, IRepository<SubjectTypeScore> SubjectTypeScores_,
-        IRepository<ToDoListNote> ToDoListNotes_, IRepository<TypeScore> TypeScores_, IRepository<University> Universities_, IRepository<UniversityMajor> UniversityMajors_, IRepository<UniversityMajorSemester> UniversityMajorSemesters_, IRepository<User> Users_)
+                           IRepository<Club> Club_, IRepository<CandidateRecruit> CandidateRecruit_, IRepository<Notification> Notification_,
+                          IRepository<ToDoListNote> ToDoListNotes_, IRepository<TypeScore> TypeScores_, IRepository<University> Universities_, IRepository<UniversityMajor> UniversityMajors_, IRepository<UniversityMajorSemester> UniversityMajorSemesters_, IRepository<User> Users_)
         {
+        
             DbContext = ct;
+            Clubs = Club_;
+            CandidateRecruits = CandidateRecruit_;
+            Notifications = Notification_;
             FileNotes = FileNotes_;
             FolderNotes = FolderNotes_;
             Grades = Grades_;
