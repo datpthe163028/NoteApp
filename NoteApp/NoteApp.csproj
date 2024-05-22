@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="App\WebSocket\" />
+    <Folder Include="Module\Hostel\Response\" />
+    <Folder Include="Module\Hostel\Request\" />
     <Folder Include="Module\Note\Response\" />
     <Folder Include="Module\Note\Request\" />
   </ItemGroup>
