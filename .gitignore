@@ -31,6 +31,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+/.vs
 
 # Visual Studio cache/options directory
 .vs/
