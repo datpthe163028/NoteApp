@@ -29,13 +29,15 @@ namespace NoteApp.App.DesignPatterns.Repository
         public IRepository<UniversityMajor> UniversityMajors { get; }
         public IRepository<UniversityMajorSemester> UniversityMajorSemesters { get; }
         public IRepository<User> Users { get; }
+        public IRepository<Hostel> Hostels { get; }
 
         public UnitOfWork(noteappContext ct, IRepository<Filenote> FileNotes_, IRepository<Foldernote> FolderNotes_, IRepository<Grade> Grades_, IRepository<Major> Majors_, IRepository<Permission> Permissions_,
                           IRepository<Role> Roles_, IRepository<Semester> Semesters_, IRepository<SimpleNote> SimpleNotes_, IRepository<Subject> Subjects_, IRepository<SubjectTypeScore> SubjectTypeScores_,
                            IRepository<Club> Club_, IRepository<CandidateRecruit> CandidateRecruit_, IRepository<Notification> Notification_,
-                          IRepository<ToDoListNote> ToDoListNotes_, IRepository<TypeScore> TypeScores_, IRepository<University> Universities_, IRepository<UniversityMajor> UniversityMajors_, IRepository<UniversityMajorSemester> UniversityMajorSemesters_, IRepository<User> Users_)
+                          IRepository<ToDoListNote> ToDoListNotes_, IRepository<TypeScore> TypeScores_, IRepository<University> Universities_, IRepository<UniversityMajor> UniversityMajors_, IRepository<UniversityMajorSemester> UniversityMajorSemesters_, IRepository<User> Users_,
+                          IRepository<Hostel> _hostel)
         {
-        
+
             DbContext = ct;
             Clubs = Club_;
             CandidateRecruits = CandidateRecruit_;
@@ -56,7 +58,7 @@ namespace NoteApp.App.DesignPatterns.Repository
             UniversityMajors = UniversityMajors_;
             UniversityMajorSemesters = UniversityMajorSemesters_;
             Users = Users_;
-
+            Hostels = _hostel;
         }
 
 
