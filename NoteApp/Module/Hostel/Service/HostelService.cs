@@ -110,6 +110,7 @@ namespace NoteApp.Module.Hostels.Service
                 response.GoogleMapAddress = hostel.GoogleMapAddress;
                 response.PhoneNumber = hostel.PhoneNumber;
                 response.ExistenceTime = hostel.ExistenceTime;
+                response.OwnerName = hostel.OwnerName;
             }
             return response;
         }
