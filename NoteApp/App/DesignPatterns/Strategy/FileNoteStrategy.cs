@@ -30,6 +30,7 @@ namespace NoteApp.App.DesignPatterns.Strategy
         public async Task<Filenote> CreateFile(string fileName, int folderId)
         {
             noteappContext ct = new noteappContext();
+
             var file = new Filenote() { Filetype = "TODOLIST", FileName = fileName, FolderId = folderId };
             ct.Filenotes.Add(file);
             await ct.SaveChangesAsync();
