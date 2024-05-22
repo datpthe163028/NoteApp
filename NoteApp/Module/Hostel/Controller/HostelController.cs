@@ -31,7 +31,7 @@ namespace NoteApp.Module.Hostel.Controller
             }
         }
 
-        [HttpGet("{id}/detail")]
+        [HttpGet("detail")]
         public ActionResult<ApiResponse<HostelResponse>> Get(int id)
         {
             try
