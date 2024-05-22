@@ -222,6 +222,33 @@ namespace NoteApp.Migrations
                     b.ToTable("grade", (string)null);
                 });
 
+            modelBuilder.Entity("NoteApp.App.Database.Data.Hostel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("ExistenceTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("GoogleMapAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("hostel", (string)null);
+                });
+
             modelBuilder.Entity("NoteApp.App.Database.Data.Major", b =>
                 {
                     b.Property<int>("MajorId")

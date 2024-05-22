@@ -36,6 +36,7 @@ namespace NoteApp.App.Database.Data
         public virtual DbSet<UniversityMajor> UniversityMajors { get; set; } = null!;
         public virtual DbSet<UniversityMajorSemester> UniversityMajorSemesters { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Hostel> Hostels { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,6 +52,14 @@ namespace NoteApp.App.Database.Data
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
 
+            modelBuilder.Entity<Hostel>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("hostel");
+
+            });
             modelBuilder.Entity<CandidateRecruit>(entity =>
             {
                 entity.HasKey(e => e.CandidateId)
