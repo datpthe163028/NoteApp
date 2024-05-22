@@ -11,8 +11,8 @@ using NoteApp.App.Database.Data;
 namespace NoteApp.Migrations
 {
     [DbContext(typeof(noteappContext))]
-    [Migration("20240522143922_FirstMg")]
-    partial class FirstMg
+    [Migration("20240522153242_FirstMigrations")]
+    partial class FirstMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,6 +222,33 @@ namespace NoteApp.Migrations
                         .HasDatabaseName("user_id1");
 
                     b.ToTable("grade", (string)null);
+                });
+
+            modelBuilder.Entity("NoteApp.App.Database.Data.Hostel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("ExistenceTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("GoogleMapAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("hostel", (string)null);
                 });
 
             modelBuilder.Entity("NoteApp.App.Database.Data.Major", b =>

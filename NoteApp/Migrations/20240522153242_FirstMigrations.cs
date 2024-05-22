@@ -6,12 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NoteApp.Migrations
 {
-    public partial class FirstMg : Migration
+    public partial class FirstMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "hostel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    OwnerName = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Address = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    GoogleMapAddress = table.Column<string>(type: "longtext", nullable: true, collation: "utf8mb4_0900_ai_ci")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ExistenceTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4")
+                .Annotation("Relational:Collation", "utf8mb4_0900_ai_ci");
 
             migrationBuilder.CreateTable(
                 name: "major",
@@ -586,6 +609,9 @@ namespace NoteApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "grade");
+
+            migrationBuilder.DropTable(
+                name: "hostel");
 
             migrationBuilder.DropTable(
                 name: "notification");
