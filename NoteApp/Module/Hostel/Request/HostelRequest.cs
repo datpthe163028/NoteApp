@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace NoteApp.App.Database.Data
+﻿namespace NoteApp.Module.Hostel.Request
 {
-    public partial class Hostel
+    public class HostelRequest
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string? OwnerName { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }

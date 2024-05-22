@@ -11,6 +11,7 @@ using NoteApp.Module.Account.Service;
 using NoteApp.Module.Account.Validations;
 using NoteApp.Module.File.Services;
 using NoteApp.Module.Folder.Services;
+using NoteApp.Module.Hostels.Service;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Note.Service;
 using NoteApp.Module.Semesters.Service;
@@ -50,6 +51,7 @@ builder.Services.AddTransient<IMajorService, MajorService>();
 builder.Services.AddTransient<ISemesterService, SemesterService>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
+builder.Services.AddTransient<IHostelService,HostelService>();
 
 #endregion
 
@@ -74,6 +76,7 @@ builder.Services.AddScoped<IRepository<University>, Repository<University>>();
 builder.Services.AddScoped<IRepository<UniversityMajor>, Repository<UniversityMajor>>();
 builder.Services.AddScoped<IRepository<UniversityMajorSemester>, Repository<UniversityMajorSemester>>();
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+builder.Services.AddScoped<IRepository<Hostel>, Repository<Hostel>>();
 #endregion
 
 #region AddAuthentication, AddJwtBearer
