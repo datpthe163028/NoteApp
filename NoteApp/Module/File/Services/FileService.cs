@@ -14,9 +14,11 @@ namespace NoteApp.Module.File.Services
     public class FileService : IFileService
     {
         private readonly UnitOfWork unitOfWork;
-        public FileService(UnitOfWork uno)
+        private readonly OperateNote operateNote;
+        public FileService(UnitOfWork uno, OperateNote operateNote)
         {
             unitOfWork = uno;
+            this.operateNote = operateNote;
         }
         public (List<Filenote> Filenote, string message) GetList(int folderId)
         {
@@ -32,7 +34,6 @@ namespace NoteApp.Module.File.Services
             if(string.IsNullOrEmpty(fileName))
                 return (null, "error");
 
-            OperateNote operateNote = new OperateNote();
             operateNote.SetFileStrategy(typeFile);
             var x = await operateNote.AddFile(fileName, folderId);
             if (x != null)
