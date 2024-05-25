@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
+using NoteApp.Common.Appsetting;
 using NoteApp.Common.Email;
 using NoteApp.Common.Token;
 using NoteApp.Module.Account.Request;
@@ -24,12 +25,18 @@ namespace NoteApp.Module.Account.Service
         private readonly UnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
         private readonly noteappContext _noteappContext;
+        private readonly IAppsettingService _appsettingService;
 
-        public AccountService (UnitOfWork unitOfWork, IConfiguration configuration, noteappContext noteappContext)
+
+        public AccountService (UnitOfWork unitOfWork, 
+            IConfiguration configuration, 
+            noteappContext noteappContext,
+            IAppsettingService appsettingService)
         {
             _unitOfWork = unitOfWork;
             _configuration = configuration;
             _noteappContext = noteappContext;
+            _appsettingService = appsettingService;
         }
         public async Task<bool> CheckVerificationServiceAsync(string token)
         {
@@ -87,8 +94,12 @@ namespace NoteApp.Module.Account.Service
 
                 _noteappContext.Users.Add(newUser);
                 await _noteappContext.SaveChangesAsync();
-
-                var verificationLink = $"https://localhost:7144/api/Account/verify?token={newUser.VerificationToken}";
+                var urlBE = _appsettingService.GetValueByKey("BACK_END_URL");
+                if (string.IsNullOrEmpty(urlBE))
+                {
+                    urlBE = "https://localhost:7144";
+                }
+                var verificationLink = $"{urlBE}/api/Account/verify?token={newUser.VerificationToken}";
                 await SendVerificationEmail(newUser.Email, verificationLink);
 
                 return (newUser, "Register Ok, Please check the your email to confirm!");
