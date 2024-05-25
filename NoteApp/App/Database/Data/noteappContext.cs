@@ -37,6 +37,7 @@ namespace NoteApp.App.Database.Data
         public virtual DbSet<UniversityMajorSemester> UniversityMajorSemesters { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Hostel> Hostels { get; set; } = null!;
+        public virtual DbSet<AppSetting> AppSettings { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.JwtToken.Services;
+using NoteApp.Common.Appsetting;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
 using NoteApp.Module.Account.Validations;
@@ -52,6 +53,7 @@ builder.Services.AddTransient<ISemesterService, SemesterService>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
 builder.Services.AddTransient<IHostelService,HostelService>();
+builder.Services.AddTransient<IAppsettingService, AppsettingService>();
 
 #endregion
 
