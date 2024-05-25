@@ -31,25 +31,6 @@ namespace NoteApp.App.DesignPatterns.Repository
         private readonly IRepository<User> users;
         private readonly IRepository<Filenote> fileNotes;
         private readonly noteappContext DbContext;
-        public IRepository<Filenote> FileNotes { get; }
-        public IRepository<Club> Clubs { get; }
-        public IRepository<CandidateRecruit> CandidateRecruits { get; }
-        public IRepository<Notification> Notifications { get; }
-        public IRepository<Foldernote> FolderNotes { get; }
-        public IRepository<Grade> Grades { get; }
-        public IRepository<Major> Majors { get; }
-        public IRepository<Permission> Permissions { get; }
-        public IRepository<Role> Roles { get; }
-        public IRepository<Semester> Semesters { get; }
-        public IRepository<SimpleNote> SimpleNotes { get; }
-        public IRepository<Subject> Subjects { get; }
-        public IRepository<SubjectTypeScore> SubjectTypeScores { get; }
-        public IRepository<ToDoListNote> ToDoListNotes { get; }
-        public IRepository<TypeScore> TypeScores { get; }
-        public IRepository<University> Universities { get; }
-        public IRepository<UniversityMajor> UniversityMajors { get; }
-        public IRepository<UniversityMajorSemester> UniversityMajorSemesters { get; }
-        public IRepository<User> Users { get; }
 
         public UnitOfWork(noteappContext dbContext)
         {

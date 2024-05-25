@@ -27,13 +27,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
+
+var CorsUrl = builder.Configuration.GetSection("Cors")["url"];
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder =>
         {
 
-            builder.WithOrigins("http://127.0.0.1:5500")
+            builder.WithOrigins(CorsUrl)
             //.AllowAnyOrigin()
                    .AllowAnyMethod()
                    .AllowAnyHeader()
