@@ -33,6 +33,11 @@ namespace NoteApp.Module.Account.Service
         {
             try
             {
+                if (account.Password != account.RePassword)
+                {
+                    return (null, "Passwords do not match");
+                }
+
                 var existingUser = await _unitOfWork.Users.FindByCondition(u => u.Email == account.Email).FirstOrDefaultAsync();
                 if (existingUser != null)
                 {
@@ -44,14 +49,14 @@ namespace NoteApp.Module.Account.Service
                     FirstName = account.FirstName,
                     LastName = account.LastName,
                     Email = account.Email,
-                    Pass = account.Password, 
-                    Active = true 
+                    Pass = account.Password,
+                    Active = true
                 };
 
                 _noteappContext.Users.Add(newUser);
                 await _noteappContext.SaveChangesAsync();
 
-                return (newUser, "Register Ok"); 
+                return (newUser, "Register Ok");
             }
             catch (Exception ex)
             {
