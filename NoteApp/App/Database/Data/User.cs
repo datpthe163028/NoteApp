@@ -21,6 +21,9 @@ namespace NoteApp.App.Database.Data
         public string? Pass { get; set; }
         public int? CurrentStudyInfoId { get; set; }
         public bool? Active { get; set; }
+
+        public string? VerificationToken { get; set; }
+
         [JsonIgnore]
 
         public virtual UniversityMajorSemester? CurrentStudyInfo { get; set; }
