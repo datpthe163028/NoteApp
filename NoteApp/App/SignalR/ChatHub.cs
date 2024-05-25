@@ -5,50 +5,65 @@ using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.SignalR.Model;
 using NoteApp.Data;
 using System.Collections.Concurrent;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace NoteApp.App.SignalR
 {
     public class ChatHub : Hub
     {
         private readonly UnitOfWork _unitOfWork;
-        public ChatHub(UnitOfWork u)
+
+        public ChatHub(UnitOfWork unitOfWork)
         {
-            _unitOfWork = u;
+            _unitOfWork = unitOfWork;
         }
 
-
-        public override Task OnConnectedAsync()
+        public async Task AddToGroup(string fileId)
         {
-            string userId = Context.GetHttpContext().Request.Query["userId"];
-            return base.OnConnectedAsync();
+            int id;
+            if (int.TryParse(fileId, out id))
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, fileId);
+
+                var x = _unitOfWork.SimpleNotes.FindByCondition(x => x.SimpleNoteId == id).FirstOrDefault();
+                await Clients.Group(fileId).SendAsync("ReceiveMessage", x.Content);
+            }
+            else
+            {
+                
+            }
         }
 
         public async Task SendMessage(string user, string message)
         {
-            //if (userConnections.TryGetValue(user, out string connectionId))
-            //{
-            //    if (user == "simplenote")
-            //    {
-            //        var note = JsonConvert.DeserializeObject<simpleNoteSignalR>(message);
 
-            //        var x = _unitOfWork.SimpleNotes.FindByCondition(x => x.SimpleNoteId == note.Id).FirstOrDefault();
-            //        if (!(note.content == "kh@iTao"))
-            //        {
+            if (user == "simplenote")
+            {
+                var note = JsonConvert.DeserializeObject<simpleNoteSignalR>(message);
+                await Clients.Group(note.Id).SendAsync("ReceiveMessage", note.content);
 
-            //            await Clients.Client(connectionId).SendAsync("ReceiveMessage", user, note.content);
-            //        }
-            //        else
-            //        {
-            //            await Clients.Client(connectionId).SendAsync("ReceiveMessage", user, x.Content);
-            //        }
-            //    }
-            //    else if (user == "todolistnote")
-            //    {
+            }
+            else if (user == "todolistnote")
+            {
 
-            //    }
-            //}
-
+            }
         }
 
+        public async Task End(string user, string message)
+        {
+
+            if (user == "simplenote")
+            {
+                var note = JsonConvert.DeserializeObject<simpleNoteSignalR>(message);
+                await Clients.Group(note.Id).SendAsync("ReceiveMessage", note.content);
+
+            }
+            else if (user == "todolistnote")
+            {
+
+            }
+        }
     }
 }
+
+
