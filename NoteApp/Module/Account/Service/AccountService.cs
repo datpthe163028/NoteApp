@@ -89,8 +89,10 @@ namespace NoteApp.Module.Account.Service
                     Email = account.Email,
                     Pass = account.Password,
                     Active = false,
-                    VerificationToken = verificationToken
+                    VerificationToken = verificationToken,
+                    CurrentStudyInfoId = account.StudyInfoId,
                 };
+                
 
                 _noteappContext.Users.Add(newUser);
                 await _noteappContext.SaveChangesAsync();

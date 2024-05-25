@@ -8,6 +8,8 @@
         public string Password { get; set; }
 
         public string RePassword { get; set; }
+
+        public int StudyInfoId { get; set; }
     }
 
     public class AccountLoginRequest
