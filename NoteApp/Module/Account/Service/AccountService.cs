@@ -19,17 +19,44 @@ namespace NoteApp.Module.Account.Service
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        private readonly noteappContext _noteappContext;
 
-        public AccountService (UnitOfWork unitOfWork, IConfiguration configuration)
+        public AccountService (UnitOfWork unitOfWork, IConfiguration configuration, noteappContext noteappContext)
         {
             _unitOfWork = unitOfWork;
-            _configuration = configuration; 
+            _configuration = configuration;
+            _noteappContext = noteappContext;
         }
 
 
-        public Task<(User Account, string ErrorMessage)> RegisterAsync(AccountRegisterRequest account)
+        public async Task<(User Account, string ErrorMessage)> RegisterAsync(AccountRegisterRequest account)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingUser = await _unitOfWork.Users.FindByCondition(u => u.Email == account.Email).FirstOrDefaultAsync();
+                if (existingUser != null)
+                {
+                    return (null, "Email has been already used");
+                }
+
+                var newUser = new User
+                {
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    Email = account.Email,
+                    Pass = account.Password, 
+                    Active = true 
+                };
+
+                _noteappContext.Users.Add(newUser);
+                await _noteappContext.SaveChangesAsync();
+
+                return (newUser, "Register Ok"); 
+            }
+            catch (Exception ex)
+            {
+                return (null, $"An error occurred while registering: {ex.Message}");
+            }
         }
 
         public async  Task<(string accessToken, string errorMessage)> AuthAsync(AccountLoginRequest accountAuthRequest)
