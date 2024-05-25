@@ -2,6 +2,8 @@
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
+using NoteApp.Common.Email;
+using NoteApp.Common.Token;
 using NoteApp.Module.Account.Request;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,6 +15,8 @@ namespace NoteApp.Module.Account.Service
     {
         Task<(string accessToken, string errorMessage)> AuthAsync(AccountLoginRequest accountAuthRequest);
         Task<(User Account, string ErrorMessage)> RegisterAsync(AccountRegisterRequest account);
+        Task<bool> CheckVerificationServiceAsync(string token);
+
     }
 
     public class AccountService : IAccountService
@@ -27,7 +31,33 @@ namespace NoteApp.Module.Account.Service
             _configuration = configuration;
             _noteappContext = noteappContext;
         }
+        public async Task<bool> CheckVerificationServiceAsync(string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(token))
+                {
+                    return false;
+                }
 
+                var user = await _noteappContext.Users
+                    .FirstOrDefaultAsync(u => u.VerificationToken == token);
+
+                if (user == null)
+                {
+                    return false;
+                }
+                user.Active = true;
+                _noteappContext.Update(user);
+                _noteappContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking verification service: {ex.Message}");
+                return false;
+            }
+        }
 
         public async Task<(User Account, string ErrorMessage)> RegisterAsync(AccountRegisterRequest account)
         {
@@ -43,6 +73,7 @@ namespace NoteApp.Module.Account.Service
                 {
                     return (null, "Email has been already used");
                 }
+                string verificationToken = TokenSerivce.GenerateVerificationToken();
 
                 var newUser = new User
                 {
@@ -50,19 +81,41 @@ namespace NoteApp.Module.Account.Service
                     LastName = account.LastName,
                     Email = account.Email,
                     Pass = account.Password,
-                    Active = true
+                    Active = false,
+                    VerificationToken = verificationToken
                 };
 
                 _noteappContext.Users.Add(newUser);
                 await _noteappContext.SaveChangesAsync();
 
-                return (newUser, "Register Ok");
+                var verificationLink = $"https://localhost:7144/api/Account/verify?token={newUser.VerificationToken}";
+                await SendVerificationEmail(newUser.Email, verificationLink);
+
+                return (newUser, "Register Ok, Please check the your email to confirm!");
             }
             catch (Exception ex)
             {
                 return (null, $"An error occurred while registering: {ex.Message}");
             }
         }
+
+        private async Task SendVerificationEmail(string email, string verificationLink)
+        {
+            try
+            {
+                var emailService = new EmailService();
+                var subject = "Verify your email";
+                var body = $"Click <a href='{verificationLink}'>here</a> to verify your email.";
+
+                await emailService.SendEmailAsync(email, subject, body);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending verification email: {ex.Message}");
+                
+            }
+        }
+
 
         public async  Task<(string accessToken, string errorMessage)> AuthAsync(AccountLoginRequest accountAuthRequest)
         {
