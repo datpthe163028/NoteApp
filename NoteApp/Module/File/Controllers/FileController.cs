@@ -41,6 +41,15 @@ namespace NoteApp.Module.File.Controllers
                 return ResponseOk(dataResponse: data);
         }
 
+        [HttpPost("SimpleNote")]
+        [Authorize]
+        public async Task<IActionResult> CreateSimpleFile()
+        {
+            
+                return ResponseOk();
+        }
+
+
 
     }
 }

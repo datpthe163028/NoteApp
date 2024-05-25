@@ -31,10 +31,8 @@ namespace NoteApp.Module.Folder.Services
             if (x == null)
                 return (null, "Not Found");
             var folder = new Foldernote() { FolderName = folderName, UserId = x.UserId };
-            //_unitOfWork.FolderNotes.Add(folder);
-            //_unitOfWork.SaveChanges();
-            _noteappContext.Foldernotes.Add(folder);
-            _noteappContext.SaveChanges();
+            _unitOfWork.FolderNotes.Add(folder);
+            _unitOfWork.SaveChanges();
             return (folder, "");
         }
 
