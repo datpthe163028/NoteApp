@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
+using NoteApp.App.DesignPatterns.Strategy;
 using NoteApp.App.JwtToken.Services;
 using NoteApp.Common.Appsetting;
+using NoteApp.App.SignalR;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
 using NoteApp.Module.Account.Validations;
+using NoteApp.Module.Club.Service;
 using NoteApp.Module.File.Services;
 using NoteApp.Module.Folder.Services;
 using NoteApp.Module.Hostels.Service;
@@ -25,14 +28,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
+
+var CorsUrl = builder.Configuration.GetSection("Cors")["url"];
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
         builder =>
         {
-            builder.AllowAnyOrigin()
+
+            builder.WithOrigins(CorsUrl)
+            //.AllowAnyOrigin()
                    .AllowAnyMethod()
-                   .AllowAnyHeader();
+                   .AllowAnyHeader()
+                       .AllowCredentials(); ;
+                
         });
 });
 
@@ -43,7 +52,7 @@ builder.Services.AddDbContext<noteappContext>(options =>
     options.UseMySql(connect, ServerVersion.AutoDetect(connect));
 });
 builder.Services.AddTransient<noteappContext, noteappContext>();
-
+builder.Services.AddSignalR();
 
 #region registerServiceForController
 builder.Services.AddTransient<IFolderService, FolderService>();
@@ -52,6 +61,7 @@ builder.Services.AddTransient<IMajorService, MajorService>();
 builder.Services.AddTransient<ISemesterService, SemesterService>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
+builder.Services.AddTransient< IClubService, ClubService >();
 builder.Services.AddTransient<IHostelService,HostelService>();
 builder.Services.AddTransient<IAppsettingService, AppsettingService>();
 
@@ -106,6 +116,14 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddTransient<IJwtService, JwtService>();
 #endregion
+
+#region Add Service Strategy
+    builder.Services.AddTransient<OperateNote, OperateNote>();
+builder.Services.AddTransient<OperateToDoListFileNoteStrategy, OperateToDoListFileNoteStrategy>();
+builder.Services.AddTransient<OperateSimpleFileNoteStrategy, OperateSimpleFileNoteStrategy>();
+builder.Services.AddTransient<OperateFileStrategyFactory, OperateFileStrategyFactory>();
+#endregion
+
 builder.Services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AccountRequestValidate>());
 
 
@@ -126,5 +144,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ChatHub>("/chathub");
 app.Run();

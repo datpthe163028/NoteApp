@@ -24,7 +24,7 @@ namespace NoteApp.Module.File.Controllers
         public IActionResult GetListFile(int folderId)
         {
             (List<Filenote> data, string message) = _fileService.GetList(folderId);
-            if(!string.IsNullOrEmpty(message))
+            if (!string.IsNullOrEmpty(message))
                 return ResponseBadRequest(messageResponse: message);
             return ResponseOk(dataResponse: data);
             //ddd
@@ -35,12 +35,20 @@ namespace NoteApp.Module.File.Controllers
         public async Task<IActionResult> CreateFile(RequestAddFile file)
         {
             (Filenote data, string ErrorMessage) = await _fileService.CreateFile(file.FolderId, file.FileName, file.typeFile);
-           if(!string.IsNullOrEmpty(ErrorMessage))
-                 return ResponseBadRequest();
-           else 
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                return ResponseBadRequest();
+            else
                 return ResponseOk(dataResponse: data);
         }
 
-
+        [HttpPut("SimpleNote")]
+        //[Authorize]
+        public async Task<IActionResult> CreateSimpleFile(RequestUpdateSimpleFile model)
+        {
+            (SimpleNote data, string ErrorMessage) = await _fileService.CreateSimpleFile(model.SimpleNoteId, model.content);
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                return ResponseOk(dataResponse: data);
+            return ResponseOk(dataResponse: data);
+        }
     }
 }

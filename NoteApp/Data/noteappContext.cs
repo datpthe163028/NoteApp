@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace NoteApp.App.Database.Data
+namespace NoteApp.Data
 {
     public partial class noteappContext : DbContext
     {
@@ -36,13 +36,13 @@ namespace NoteApp.App.Database.Data
         public virtual DbSet<UniversityMajor> UniversityMajors { get; set; } = null!;
         public virtual DbSet<UniversityMajorSemester> UniversityMajorSemesters { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<Hostel> Hostels { get; set; } = null!;
-        public virtual DbSet<AppSetting> AppSettings { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseMySql("server=localhost;database=noteapp;user=root;password=dat123456", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
             }
         }
 
@@ -51,14 +51,6 @@ namespace NoteApp.App.Database.Data
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
 
-            modelBuilder.Entity<Hostel>(entity =>
-            {
-                entity.HasKey(e => e.Id)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("hostel");
-
-            });
             modelBuilder.Entity<CandidateRecruit>(entity =>
             {
                 entity.HasKey(e => e.CandidateId)

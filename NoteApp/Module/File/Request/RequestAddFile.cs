@@ -6,4 +6,10 @@
         public int FolderId { get; set; }
         public string typeFile { get; set; }
     }
+
+    public class RequestUpdateSimpleFile
+    {
+        public int SimpleNoteId { get; set; }
+        public string content { get; set; }
+    }
 }
