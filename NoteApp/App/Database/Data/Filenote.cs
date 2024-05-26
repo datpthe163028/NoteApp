@@ -17,5 +17,6 @@ namespace NoteApp.App.Database.Data
         public virtual SimpleNote? SimpleNote { get; set; }
         [JsonIgnore]
         public virtual ToDoListNote? ToDoListNote { get; set; }
+        public virtual ICollection<ComplextNote> ComplexNotes { get; set; }
     }
 }

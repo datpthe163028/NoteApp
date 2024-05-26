@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoteApp.App.Database.Data;
 
@@ -10,9 +11,10 @@ using NoteApp.App.Database.Data;
 namespace NoteApp.Migrations
 {
     [DbContext(typeof(noteappContext))]
-    partial class noteappContextModelSnapshot : ModelSnapshot
+    [Migration("20240526015545_AddTableComplexNote")]
+    partial class AddTableComplexNote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,30 +132,14 @@ namespace NoteApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Content1")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Content2")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Content3")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("FileNoteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Header1")
+                    b.Property<string>("Header")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Header2")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Header3")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -161,7 +147,7 @@ namespace NoteApp.Migrations
 
                     b.HasIndex("FileNoteId");
 
-                    b.ToTable("ComplextNotes");
+                    b.ToTable("ComplextNote");
                 });
 
             modelBuilder.Entity("NoteApp.App.Database.Data.DetailToDoList", b =>
@@ -194,30 +180,6 @@ namespace NoteApp.Migrations
                     b.HasIndex(new[] { "ToDoListNoteId" }, "to_do_list_note_id");
 
                     b.ToTable("detail_to_do_list", (string)null);
-                });
-
-            modelBuilder.Entity("NoteApp.App.Database.Data.Document", b =>
-                {
-                    b.Property<int>("DocumentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ComplextNoteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Header")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("DocumentId");
-
-                    b.HasIndex("ComplextNoteId");
-
-                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("NoteApp.App.Database.Data.Filenote", b =>
@@ -712,17 +674,6 @@ namespace NoteApp.Migrations
                     b.Navigation("ToDoListNote");
                 });
 
-            modelBuilder.Entity("NoteApp.App.Database.Data.Document", b =>
-                {
-                    b.HasOne("NoteApp.App.Database.Data.ComplextNote", "ComplextNote")
-                        .WithMany("Documents")
-                        .HasForeignKey("ComplextNoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ComplextNote");
-                });
-
             modelBuilder.Entity("NoteApp.App.Database.Data.Filenote", b =>
                 {
                     b.HasOne("NoteApp.App.Database.Data.Foldernote", "Folder")
@@ -888,11 +839,6 @@ namespace NoteApp.Migrations
             modelBuilder.Entity("NoteApp.App.Database.Data.Club", b =>
                 {
                     b.Navigation("CandidateRecruits");
-                });
-
-            modelBuilder.Entity("NoteApp.App.Database.Data.ComplextNote", b =>
-                {
-                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("NoteApp.App.Database.Data.Filenote", b =>

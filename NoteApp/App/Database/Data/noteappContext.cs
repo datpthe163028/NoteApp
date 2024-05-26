@@ -38,6 +38,8 @@ namespace NoteApp.App.Database.Data
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Hostel> Hostels { get; set; } = null!;
         public virtual DbSet<AppSetting> AppSettings { get; set; } = null!;
+        public virtual DbSet<ComplextNote> ComplextNotes { get; set; } = null!;
+        public virtual DbSet<Document> Documents { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,6 +53,8 @@ namespace NoteApp.App.Database.Data
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
 
+
+
             modelBuilder.Entity<Hostel>(entity =>
             {
                 entity.HasKey(e => e.Id)
@@ -59,6 +63,33 @@ namespace NoteApp.App.Database.Data
                 entity.ToTable("hostel");
 
             });
+
+
+            modelBuilder.Entity<ComplextNote>()
+          .HasKey(c => c.ComplexNoteId);
+
+            modelBuilder.Entity<ComplextNote>()
+                .Property(c => c.ComplexNoteId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ComplextNote>()
+                .HasOne(c => c.FileNote)
+                .WithMany(f => f.ComplexNotes) 
+                .HasForeignKey(c => c.FileNoteId);
+
+            modelBuilder.Entity<Document>()
+         .HasKey(c => c.DocumentId);
+
+            modelBuilder.Entity<Document>()
+                .Property(c => c.DocumentId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Document>()
+                .HasOne(c => c.ComplextNote)
+                .WithMany(f => f.Documents)
+                .HasForeignKey(c => c.ComplextNoteId);
+
+
             modelBuilder.Entity<CandidateRecruit>(entity =>
             {
                 entity.HasKey(e => e.CandidateId)

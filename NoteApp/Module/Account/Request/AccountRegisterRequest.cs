@@ -9,7 +9,9 @@
 
         public string RePassword { get; set; }
 
-        public int StudyInfoId { get; set; }
+        public int UniversityId { get; set; }
+        public int MajorId { get; set; }
+        public int SemesterId { get; set; }
     }
 
     public class AccountLoginRequest

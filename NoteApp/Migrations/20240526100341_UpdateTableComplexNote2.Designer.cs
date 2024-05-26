@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoteApp.App.Database.Data;
 
@@ -10,9 +11,10 @@ using NoteApp.App.Database.Data;
 namespace NoteApp.Migrations
 {
     [DbContext(typeof(noteappContext))]
-    partial class noteappContextModelSnapshot : ModelSnapshot
+    [Migration("20240526100341_UpdateTableComplexNote2")]
+    partial class UpdateTableComplexNote2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

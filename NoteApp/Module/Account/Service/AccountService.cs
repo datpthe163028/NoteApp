@@ -82,6 +82,10 @@ namespace NoteApp.Module.Account.Service
                 }
                 string verificationToken = TokenSerivce.GenerateVerificationToken();
 
+                var x = _unitOfWork.UniversityMajors.FindByCondition(x => x.UniversityId == account.UniversityId && x.MajorId == account.MajorId).FirstOrDefault();
+
+                var y = _unitOfWork.UniversityMajorSemesters.FindByCondition(x => x.UniversityMajorId == x.UniversityMajorId && x.SemesterId == account.SemesterId).FirstOrDefault();
+
                 var newUser = new User
                 {
                     FirstName = account.FirstName,
@@ -90,12 +94,20 @@ namespace NoteApp.Module.Account.Service
                     Pass = account.Password,
                     Active = false,
                     VerificationToken = verificationToken,
-                    CurrentStudyInfoId = account.StudyInfoId,
+                    CurrentStudyInfoId = y.UniversityMajorSemesterId,
                 };
+
+           
+
                 
 
                 _noteappContext.Users.Add(newUser);
                 await _noteappContext.SaveChangesAsync();
+
+                if (y.UniversityMajorSemesterId == 6)
+                {
+                    _unitOfWork.FolderNotes.Add(new Foldernote() { UserId = newUser.UserId, FolderName = "Kì 1" } );
+                }
                 var urlBE = _appsettingService.GetValueByKey("BACK_END_URL");
                 if (string.IsNullOrEmpty(urlBE))
                 {
