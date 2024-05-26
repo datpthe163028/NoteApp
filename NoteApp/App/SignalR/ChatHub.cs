@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.SignalR.Model;
-using NoteApp.Data;
 using System.Collections.Concurrent;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
