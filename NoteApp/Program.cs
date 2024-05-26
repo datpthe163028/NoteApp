@@ -18,6 +18,7 @@ using NoteApp.Module.Folder.Services;
 using NoteApp.Module.Hostels.Service;
 using NoteApp.Module.Majors.Services;
 using NoteApp.Module.Note.Service;
+using NoteApp.Module.Notifications.Service;
 using NoteApp.Module.Semesters.Service;
 using System;
 using System.Text;
@@ -63,6 +64,7 @@ builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
 builder.Services.AddTransient< IClubService, ClubService >();
 builder.Services.AddTransient<IHostelService,HostelService>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 builder.Services.AddTransient<IAppsettingService, AppsettingService>();
 
 #endregion

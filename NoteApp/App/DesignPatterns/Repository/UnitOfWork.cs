@@ -12,6 +12,7 @@ namespace NoteApp.App.DesignPatterns.Repository
 
 
         private readonly IRepository<Club> clubs;
+        private readonly IRepository<DetailToDoList> detailToDoLists;
         private readonly IRepository<CandidateRecruit> candidateRecruits;
         private readonly IRepository<Notification> notifications;
         private readonly IRepository<Foldernote> folderNotes;
@@ -38,6 +39,7 @@ namespace NoteApp.App.DesignPatterns.Repository
         }
 
         public IRepository<Filenote> FileNotes => fileNotes ?? new Repository<Filenote>(DbContext);
+        public IRepository<DetailToDoList> ToDoListDetails => detailToDoLists ?? new Repository<DetailToDoList>(DbContext);
         public IRepository<Club> Clubs => clubs ?? new Repository<Club>(DbContext);
         public IRepository<CandidateRecruit> CandidateRecruits => candidateRecruits ?? new Repository<CandidateRecruit>(DbContext);
         public IRepository<Notification> Notifications => notifications ?? new Repository<Notification>(DbContext);
