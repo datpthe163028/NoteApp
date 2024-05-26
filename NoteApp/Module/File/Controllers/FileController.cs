@@ -41,13 +41,53 @@ namespace NoteApp.Module.File.Controllers
                 return ResponseOk(dataResponse: data);
         }
 
-        [HttpPut("SimpleNote")]
-        //[Authorize]
-        public async Task<IActionResult> CreateSimpleFile(RequestUpdateSimpleFile model)
+        //[HttpPut("SimpleNote")]
+        ////[Authorize]
+        //public async Task<IActionResult> CreateSimpleFile(RequestUpdateSimpleFile model)
+        //{
+        //    (SimpleNote data, string ErrorMessage) = await _fileService.CreateSimpleFile(model.SimpleNoteId, model.content);
+        //    if (!string.IsNullOrEmpty(ErrorMessage))
+        //        return ResponseOk(dataResponse: data);
+        //    return ResponseOk(dataResponse: data);
+        //}
+
+        [HttpDelete("ToDoList")]
+        [Authorize]
+        public async Task<IActionResult> DeleteToDoList(int id)
         {
-            (SimpleNote data, string ErrorMessage) = await _fileService.CreateSimpleFile(model.SimpleNoteId, model.content);
+             string ErrorMessage = _fileService.DeleteTodoList(id);
             if (!string.IsNullOrEmpty(ErrorMessage))
-                return ResponseOk(dataResponse: data);
+                return ResponseOk(messageResponse: "Error");
+            return ResponseOk(messageResponse: "");
+        }
+
+        [HttpGet("ToDoList")]
+        [Authorize]
+        public async Task<IActionResult> GetTodoList(int fileId)
+        {
+            (List<DetailToDoList> data, string ErrorMessage) = _fileService.GetListToDoList(fileId);
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                return ResponseOk(messageResponse: "Error");
+            return ResponseOk(dataResponse: data);
+        }
+
+        [HttpPut("ToDoList")]
+        [Authorize]
+        public async Task<IActionResult> UpdateToDolist(RequestUpdateToDoList model)
+        {
+            (DetailToDoList data, string ErrorMessage) = await _fileService.UpdateTodoList(model);
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                return ResponseOk(messageResponse: "Error");
+            return ResponseOk(dataResponse: data);
+        }
+
+        [HttpPost("ToDoList")]
+        [Authorize]
+        public async Task<IActionResult> CreateToDolist(RequestAddToDoList model)
+        {
+            (DetailToDoList data, string ErrorMessage) = await _fileService.CreateToDolList(model);
+            if (!string.IsNullOrEmpty(ErrorMessage))
+                return ResponseOk(messageResponse: "Error");
             return ResponseOk(dataResponse: data);
         }
     }
