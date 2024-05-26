@@ -44,7 +44,7 @@ namespace NoteApp.App.DesignPatterns.Strategy
             var file = new Filenote() { Filetype = "TODOLIST", FileName = fileName, FolderId = folderId };
             _unitOfWork.FileNotes.Add(file);
             await _unitOfWork.SaveChangesAsync();
-            _unitOfWork.ToDoListNotes.Add(new ToDoListNote() {  });
+            _unitOfWork.ToDoListNotes.Add(new ToDoListNote() { ToDoListNoteId = file.FileId, Header = ""  });
             await _unitOfWork.SaveChangesAsync();
             return file;
         }

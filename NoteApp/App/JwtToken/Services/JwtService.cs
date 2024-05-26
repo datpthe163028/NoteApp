@@ -57,7 +57,7 @@ namespace NoteApp.App.JwtToken.Services
                     throw new SecurityTokenException("Invalid token");
                 }
                 int userId = int.Parse(userIdClaim.Value);
-                var x = _unitOfWork.Users.FindByCondition(s => s.UserId == userId).Include(x => x.Foldernotes).ThenInclude(x => x.Filenotes).FirstOrDefault();
+                var x = _unitOfWork.Users.FindByCondition(s => s.UserId == userId).Include(x => x.Foldernotes).ThenInclude(x => x.Filenotes).Include(x => x.Notifications).FirstOrDefault();
                 if (x != null) 
                      return x;
                 return null;
