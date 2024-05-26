@@ -7,6 +7,7 @@ using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
 using NoteApp.App.DesignPatterns.Strategy;
 using NoteApp.App.JwtToken.Services;
+using NoteApp.Common.Appsetting;
 using NoteApp.App.SignalR;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
@@ -62,6 +63,7 @@ builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddSingleton<INoteWebSocketService,NoteWebSocketService>();
 builder.Services.AddTransient< IClubService, ClubService >();
 builder.Services.AddTransient<IHostelService,HostelService>();
+builder.Services.AddTransient<IAppsettingService, AppsettingService>();
 
 #endregion
 

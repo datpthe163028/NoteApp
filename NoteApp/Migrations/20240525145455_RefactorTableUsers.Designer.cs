@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoteApp.App.Database.Data;
 
@@ -10,9 +11,10 @@ using NoteApp.App.Database.Data;
 namespace NoteApp.Migrations
 {
     [DbContext(typeof(noteappContext))]
-    partial class noteappContextModelSnapshot : ModelSnapshot
+    [Migration("20240525145455_RefactorTableUsers")]
+    partial class RefactorTableUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,25 +23,6 @@ namespace NoteApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
-
-            modelBuilder.Entity("NoteApp.App.Database.Data.AppSetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppSettings");
-                });
 
             modelBuilder.Entity("NoteApp.App.Database.Data.CandidateRecruit", b =>
                 {

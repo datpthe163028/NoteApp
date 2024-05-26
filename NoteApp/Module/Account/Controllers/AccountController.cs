@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using NoteApp.App.Controllers;
 using NoteApp.App.Database.Data;
 using NoteApp.App.DesignPatterns.Repository;
+using NoteApp.Common.Appsetting;
 using NoteApp.Module.Account.Request;
 using NoteApp.Module.Account.Service;
+using static System.Net.WebRequestMethods;
 
 namespace NoteApp.Module.Account.Controllers
 {
@@ -13,18 +15,21 @@ namespace NoteApp.Module.Account.Controllers
     [ApiController]
     public class AccountController : BaseController
     {
-        private readonly IAccountService AccountService;
+        private readonly IAccountService _accountService;
+        private readonly IAppsettingService _appsettingService;
         private readonly UnitOfWork _unitOfWork;
-        public AccountController(IAccountService accountService, UnitOfWork uo)
+
+        public AccountController(IAccountService accountService, UnitOfWork uo, IAppsettingService appsettingService)
         {
-            AccountService = accountService;
+            _accountService = accountService;
             _unitOfWork = uo;
+            _appsettingService = appsettingService;
         }
 
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAccountForApp([FromBody] AccountRegisterRequest accountRequest)
         {
-            (User account, string errorMessage) = await AccountService.RegisterAsync(accountRequest);
+            (User account, string errorMessage) = await _accountService.RegisterAsync(accountRequest);
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 return ResponseBadRequest(errorMessage);
@@ -35,7 +40,7 @@ namespace NoteApp.Module.Account.Controllers
         [HttpPost("Auth")]
         public async Task<IActionResult> Login([FromBody] AccountLoginRequest account)
         {
-            (string accessToken, string errorMessage) = await AccountService.AuthAsync(account);
+            (string accessToken, string errorMessage) = await _accountService.AuthAsync(account);
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 ResponseOk(messageResponse: errorMessage );
@@ -51,5 +56,24 @@ namespace NoteApp.Module.Account.Controllers
             return Ok();
         }
 
+        [HttpGet("verify")]
+        public async Task<IActionResult> VerifyEmail(string token)
+        {
+            var isVerified = await _accountService.CheckVerificationServiceAsync(token);
+
+            if (isVerified)
+            {
+                var urlRedirect = _appsettingService.GetValueByKey("FRONT_END_URL");
+                if (string.IsNullOrEmpty(urlRedirect))
+                {
+                    urlRedirect = "https://localhost:4200";
+                }
+                return Redirect(urlRedirect);
+            }
+            else
+            {
+                return BadRequest("Verification failed or token invalid");
+            }
+        }
     }
 }
