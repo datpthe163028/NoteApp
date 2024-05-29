@@ -16,7 +16,6 @@ namespace NoteApp.Module.File.Request
         public bool Status { get; set; }
         public string? TaskName { get; set; }
         public DateTime? Due { get; set; }
-        public int? ToDoListNoteId { get; set; }
        
     }
 

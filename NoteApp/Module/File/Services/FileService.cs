@@ -92,7 +92,7 @@ namespace NoteApp.Module.File.Services
 
         public async Task<(DetailToDoList data, string ErrorMessage)> UpdateTodoList(RequestUpdateToDoList model)
         {
-            var temp = unitOfWork.ToDoListDetails.FindByCondition(c => c.DetailToDoListId == model.ToDoListNoteId).FirstOrDefault();
+            var temp = unitOfWork.ToDoListDetails.FindByCondition(c => c.DetailToDoListId == model.DetailToDoListId).FirstOrDefault();
             if (temp == null)
             {
                 return (null, "error");
